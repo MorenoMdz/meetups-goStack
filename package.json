@@ -1,18 +1,18 @@
 {
-  "name": "adonis-api-app",
+  "name": "Meetapp",
   "version": "4.1.0",
   "adonis-version": "4.1.0",
-  "description": "Adonisjs boilerplate for API server with pre-configured JWT",
+  "description": "App para gerenciar meetups entre programadores",
   "main": "index.js",
   "scripts": {
     "start": "node server.js",
     "test": "node ace test"
   },
   "keywords": [
-    "adonisjs",
-    "adonis-app"
+    "meetups",
+    "goStack"
   ],
-  "author": "",
+  "author": "Moreno Antunes",
   "license": "UNLICENSED",
   "private": true,
   "dependencies": {
@@ -25,8 +25,12 @@
     "@adonisjs/ignitor": "^2.0.8",
     "@adonisjs/lucid": "^6.1.3",
     "@adonisjs/mail": "^3.0.9",
+    "@adonisjs/redis": "^2.0.7",
+    "@adonisjs/validator": "^5.0.6",
+    "adonis-kue": "^5.0.1",
     "moment": "^2.24.0",
-    "pg": "^7.9.0"
+    "pg": "^7.9.0",
+    "raven": "^2.6.4"
   },
   "devDependencies": {},
   "autoload": {
