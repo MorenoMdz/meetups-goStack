@@ -24,10 +24,7 @@ class RegisterController {
     const user_id = auth.user.id;
     const meetup = await Meetup.findOrFail(params.id);
 
-    const users = (await meetup.users().fetch()).toJSON();
-    const updatedUsers = users.filter(user => user.id !== user_id);
-
-    await meetup.users().sync(updatedUsers);
+    await meetup.users().detach(user_id);
 
     await meetup.save();
 
