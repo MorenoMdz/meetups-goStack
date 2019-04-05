@@ -35,5 +35,8 @@ Route.group(() => {
         [['meetups.update'], ['Meetup']],
       ])
     );
+  Route.post('meetups/:id/register', 'RegisterController.store');
+  Route.post('meetups/:id/unregister', 'RegisterController.destroy');
+
   Route.post('files', 'FileController.store');
 }).middleware(['auth']);

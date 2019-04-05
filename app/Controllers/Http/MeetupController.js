@@ -8,7 +8,7 @@ class MeetupController {
     // DOC to be called with 'meetups?page=2'
 
     const meetups = await Meetup.query()
-      .with('user', builder => builder.select('id', 'username'))
+      .with('user', builder => builder.select('id', 'name'))
       .with('file')
       .paginate(page);
 
@@ -40,6 +40,7 @@ class MeetupController {
     await meetup.load('file');
 
     meetup.preferences = await meetup.preferences().fetch();
+    meetup.users = await meetup.users().fetch();
 
     return meetup;
   }

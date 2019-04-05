@@ -26,11 +26,11 @@ class Meetup extends Model {
       .pivotModel('App/Models/MeetupPreference');
   }
 
-  // users() {
-  //   return this.belongsToMany('App/Models/User')
-  // .pivotTable('user_meetup')
-  // .pivotModel('App/Models/UserMeetup');
-  // }
+  users() {
+    return this.belongsToMany('App/Models/User')
+      .pivotTable('user_meetup')
+      .pivotModel('App/Models/UserMeetup');
+  }
 }
 
 module.exports = Meetup;

@@ -7,8 +7,26 @@ class UserMeetupSchema extends Schema {
   up() {
     this.create('user_meetups', table => {
       table.increments();
-      table.integer('user_id');
-      table.integer('meetup_id');
+      table
+        .integer('meetup_id')
+        .unsigned()
+        .index('meetup_id');
+      table
+        .integer('user_id')
+        .unsigned()
+        .index('user_id');
+      table
+        .foreign('meetup_id')
+        .references('id')
+        .inTable('meetups')
+        .onUpdate('CASCADE')
+        .onDelete('CASCADE');
+      table
+        .foreign('user_id')
+        .references('id')
+        .inTable('users')
+        .onUpdate('CASCADE')
+        .onDelete('CASCADE');
       table.timestamps();
     });
   }
