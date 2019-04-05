@@ -7,7 +7,7 @@ class User {
 
   get rules() {
     return {
-      username: 'required|unique:users',
+      name: 'required|unique:users',
       email: 'required|email|unique:users',
       password: 'required|confirmed',
     };

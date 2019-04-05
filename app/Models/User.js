@@ -21,11 +21,11 @@ class User extends Model {
     return this.hasMany('App/Models/Token');
   }
 
-  // preferences() {
-  //   return this.belongsToMany('App/Models/Preference')
-  //     .pivotTable('meetup_prefrences')
-  //     .pivotModel('App/Models/UserPreference');
-  // }
+  preferences() {
+    return this.belongsToMany('App/Models/Preference')
+      .pivotTable('user_preferences')
+      .pivotModel('App/Models/UserPreference');
+  }
 
   // meetups() {
   //   return this.belongsToMany('App/Models/Meetup')

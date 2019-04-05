@@ -23,12 +23,16 @@ Route.post('preferences', 'PreferenceController.store');
 
 /* Authenticated Routes */
 Route.group(() => {
+  // TODO resource routes User
+  Route.get('users/:id', 'UserController.show');
+  Route.put('users/:id', 'UserController.update');
+
   Route.resource('meetups', 'MeetupController')
     .apiOnly()
     .validator(
       new Map([
         [['meetups.store'], ['Meetup']],
-        // [['meetups.update'], ['Meetup']], TODO
+        [['meetups.update'], ['Meetup']],
       ])
     );
   Route.post('files', 'FileController.store');

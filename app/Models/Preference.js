@@ -8,6 +8,12 @@ class Preference extends Model {
       .pivotTable('meetup_preferences')
       .pivotModel('App/Models/MeetupPreference');
   }
+
+  users() {
+    return this.belongsToMany('App/Models/User')
+      .pivotTable('user_preferences')
+      .pivotModel('App/Models/UserPreference');
+  }
 }
 
 module.exports = Preference;
