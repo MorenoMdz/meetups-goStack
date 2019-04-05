@@ -12,17 +12,25 @@ class Meetup extends Model {
     this.addHook('beforeUpdate', 'MeetupHook.sendMailNotification');
   }
 
-  user() {
-    return this.belongsTo('App/Models/User');
-  }
-
   file() {
     return this.belongsTo('App/Models/File');
   }
 
-  preferences() {
-    return this.hasMany('App/Models/MeetupPreference');
+  user() {
+    return this.belongsTo('App/Models/User');
   }
+
+  preferences() {
+    return this.belongsToMany('App/Models/Preference')
+      .pivotTable('meetup_preferences')
+      .pivotModel('App/Models/MeetupPreference');
+  }
+
+  // users() {
+  //   return this.belongsToMany('App/Models/User')
+  // .pivotTable('user_meetup')
+  // .pivotModel('App/Models/UserMeetup');
+  // }
 }
 
 module.exports = Meetup;

@@ -21,9 +21,17 @@ class User extends Model {
     return this.hasMany('App/Models/Token');
   }
 
-  meetups() {
-    return this.hasMany('App/Models/Meetup');
-  }
+  // preferences() {
+  //   return this.belongsToMany('App/Models/Preference')
+  //     .pivotTable('meetup_prefrences')
+  //     .pivotModel('App/Models/UserPreference');
+  // }
+
+  // meetups() {
+  //   return this.belongsToMany('App/Models/Meetup')
+  //     .pivotTable('user_meetup')
+  //     .pivotModel('App/Models/UserMeetup');
+  // }
 }
 
 module.exports = User;

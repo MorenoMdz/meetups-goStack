@@ -18,10 +18,11 @@ Route.put('forgot', 'ForgotPasswordController.update').validator(
 
 Route.get('files/:id', 'FileController.show');
 
+Route.get('preferences', 'PreferenceController.index');
+Route.post('preferences', 'PreferenceController.store');
+
 /* Authenticated Routes */
 Route.group(() => {
-  Route.post('files', 'FileController.store');
-
   Route.resource('meetups', 'MeetupController')
     .apiOnly()
     .validator(
@@ -30,4 +31,5 @@ Route.group(() => {
         // [['meetups.update'], ['Meetup']], TODO
       ])
     );
+  Route.post('files', 'FileController.store');
 }).middleware(['auth']);

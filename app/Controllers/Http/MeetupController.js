@@ -1,38 +1,34 @@
 'use strict';
 
-const Database = use('Database');
 const Meetup = use('App/Models/Meetup');
 
 class MeetupController {
   async index({ request }) {
     const { page } = request.get();
+    // DOC to be called with 'meetups?page=2'
 
     const meetups = await Meetup.query()
-      .with('user')
+      .with('user', builder => builder.select('id', 'username'))
+      .with('file')
       .paginate(page);
-    // DOC to be called with 'meetups?page=2'
-    // todo not return password
 
     return meetups;
   }
 
   async store({ request, auth }) {
-    const data = request.only([
-      'title',
-      'description',
-      'file_id' /*  'event_date'..., */,
-    ]);
-    const preferences = request.input('preferences');
+    const { title, description, file_id, preferences } = request.post();
 
-    const trx = await Database.beginTransaction();
+    const meetup = await Meetup.create({
+      title,
+      description,
+      file_id,
+      user_id: auth.user.id,
+    });
 
-    // if (!data.file_id) data.file_id = 1; // TODO default pic
-
-    const meetup = await Meetup.create({ ...data, user_id: auth.user.id }, trx);
-
-    await meetup.preferences().createMany(preferences, trx);
-
-    await trx.commit();
+    if (preferences && preferences.length > 0) {
+      await meetup.preferences().attach(preferences);
+      meetup.preferences = await meetup.preferences().fetch();
+    }
 
     return meetup;
   }
@@ -43,16 +39,21 @@ class MeetupController {
     await meetup.load('user');
     await meetup.load('file');
 
+    meetup.preferences = await meetup.preferences().fetch();
+
     return meetup;
   }
 
   async update({ params, request }) {
     const meetup = await Meetup.findOrFail(params.id);
-    const data = request.only(['title', 'description', 'file_id']);
+    const { title, description, file_id, preferences } = request.post();
 
-    meetup.merge(data);
+    await meetup.merge({ title, description, file_id });
+    await meetup.preferences().sync(preferences);
 
     await meetup.save();
+
+    meetup.preferences = await meetup.preferences().fetch();
 
     return meetup;
   }
