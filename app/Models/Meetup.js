@@ -7,9 +7,8 @@ class Meetup extends Model {
   static boot() {
     super.boot();
 
-    // send email when a new Meetup is made or updated
     this.addHook('afterCreate', 'MeetupHook.sendMailNotification');
-    this.addHook('beforeUpdate', 'MeetupHook.sendMailNotification');
+    // this.addHook('beforeUpdate', 'MeetupHook.sendMailNotification');
   }
 
   file() {

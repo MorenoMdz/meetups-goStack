@@ -70,6 +70,6 @@ const commands = [];
 |
 */
 
-const jobs = ['App/Jobs/NewTaskMail'];
+const jobs = ['App/Jobs/NewTaskMail', 'App/Jobs/MeetupRegitrationMail'];
 
 module.exports = { providers, aceProviders, aliases, commands, jobs };

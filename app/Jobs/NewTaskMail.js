@@ -16,21 +16,21 @@ class NewTaskMail {
   }
 
   // This is where the work is done.
-  async handle({ email, username, title, file }) {
+  async handle({ email, username, title }) {
     console.log(`Job: ${NewTaskMail.key}`);
 
     await Mail.send(
-      ['emails.forgot_password'], //todo change
+      ['emails.forgot_password'],
       {
         username,
-        title /* hasAttatchment: !!file */,
+        title,
         link: 'test',
         token: 'tokentest',
       },
       message => {
         message
           .to(email)
-          .from('admin@meetups-gostack.com', 'Admin | Meetapp goStack')
+          .from('admin@meetapp.com', 'Admin | Meetapp')
           .subject('Test email');
       }
     );

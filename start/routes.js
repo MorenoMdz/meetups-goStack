@@ -19,11 +19,11 @@ Route.put('forgot', 'ForgotPasswordController.update').validator(
 Route.get('files/:id', 'FileController.show');
 
 Route.get('preferences', 'PreferenceController.index');
-Route.post('preferences', 'PreferenceController.store');
 
 /* Authenticated Routes */
 Route.group(() => {
-  // TODO resource routes User
+  Route.post('preferences', 'PreferenceController.store');
+
   Route.get('users/:id', 'UserController.show');
   Route.put('users/:id', 'UserController.update');
 
@@ -35,8 +35,8 @@ Route.group(() => {
         [['meetups.update'], ['Meetup']],
       ])
     );
-  Route.post('meetups/:id/register', 'RegisterController.store');
-  Route.post('meetups/:id/unregister', 'RegisterController.destroy');
+  Route.post('meetups/:id/register', 'MeetupRegistrationController.store');
+  Route.post('meetups/:id/unregister', 'MeetupRegistrationController.destroy');
 
   Route.post('files', 'FileController.store');
 }).middleware(['auth']);

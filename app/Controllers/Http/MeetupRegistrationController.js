@@ -1,8 +1,12 @@
 'use strict';
 
+const Env = use('Env');
+const Kue = use('Kue');
+const Job = use('App/Jobs/MeetupRegitrationMail');
+
 const Meetup = use('App/Models/Meetup');
 
-class RegisterController {
+class MeetupRegistration {
   async store({ params, response, auth }) {
     const meetup = await Meetup.findOrFail(params.id);
     const user = auth.user;
@@ -10,6 +14,19 @@ class RegisterController {
     await meetup.users().attach(user.id);
 
     await meetup.save();
+
+    Kue.dispatch(
+      Job.key,
+      {
+        email: user.email,
+        name: user.name,
+        title: meetup.title,
+        link: `http://${Env.get('HOST')}:3333/meetups/${meetup.id}`,
+      },
+      {
+        attempts: 3,
+      }
+    );
 
     return response.status(200).send({
       success: {
@@ -34,4 +51,4 @@ class RegisterController {
   }
 }
 
-module.exports = RegisterController;
+module.exports = MeetupRegistration;
