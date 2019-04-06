@@ -27,11 +27,11 @@ class User extends Model {
       .pivotModel('App/Models/UserPreference');
   }
 
-  // meetups() {
-  //   return this.belongsToMany('App/Models/Meetup')
-  //     .pivotTable('user_meetup')
-  //     .pivotModel('App/Models/UserMeetup');
-  // }
+  meetups() {
+    return this.belongsToMany('App/Models/Meetup')
+      .pivotTable('user_meetup')
+      .pivotModel('App/Models/UserMeetup');
+  }
 }
 
 module.exports = User;

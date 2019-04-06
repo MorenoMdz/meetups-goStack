@@ -22,7 +22,10 @@ class MeetupSchema extends Schema {
         .inTable('files')
         .onUpdate('CASCADE')
         .onDelete('SET NULL');
-      table.string('title').notNullable(); // * Title string
+      table
+        .string('title')
+        .notNullable()
+        .unique(); // * Title string
       table.text('description').notNullable(); // * Description string
       table.timestamp('event_date'); // * Event date timestamp
       // table.timestamp('event_date');

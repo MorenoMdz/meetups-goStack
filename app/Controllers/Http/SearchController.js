@@ -1,23 +1,37 @@
 'use strict';
 
 const Meetup = use('App/Models/Meetup');
+const User = use('App/Models/User');
 
 class SearchController {
-  async store({ params, response, auth }) {
-    const meetup = await Meetup.findOrFail(params.id);
-    const user = auth.user;
+  async meetupsByTitle({ request }) {
+    const { title } = request.post();
 
-    await meetup.users().attach(user.id);
+    const meetups = await Meetup.query()
+      .where(`title`, `like`, `%${title}%`)
+      .fetch();
+    return meetups;
+  }
 
-    await meetup.save();
+  async meetupsRegistered({ auth }) {
+    const user_id = auth.user.id;
+    const user = await User.findOrFail(user_id);
+    const meetupsRegistered = await user.meetups().fetch();
 
-    return response.status(200).send({
-      success: {
-        message: `Registro do usuário ${user.name} adicionado ao meetup ${
-          meetup.title
-        } com sucesso!`,
-      },
-    });
+    return meetupsRegistered;
+  }
+
+  async meetupsNotRegistered({ request, auth }) {
+    // find user
+    const user_id = auth.user.id;
+    const { page } = request.post() || 1;
+
+    const meetups = await Meetup.query()
+      .with('users', builder => builder.select('id', 'name'))
+      .with('file')
+      .paginate(page);
+
+    return meetups;
   }
 }
 
