@@ -42,6 +42,14 @@ Route.group(() => {
   Route.post('meetups/by-title', 'SearchController.meetupsByTitle');
   Route.post('meetups/registered', 'SearchController.meetupsRegistered');
   Route.post('meetups/not-registered', 'SearchController.meetupsNotRegistered');
+  Route.post(
+    'meetups/registered-soon',
+    'SearchController.meetupsRegisteredSoon'
+  );
+  Route.post(
+    'meetups/recommended-soon',
+    'SearchController.meetupsNotRegisteredRecommended'
+  );
 
   Route.post('files', 'FileController.store');
 }).middleware(['auth']);

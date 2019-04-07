@@ -8,7 +8,7 @@ class MeetupSchema extends Schema {
     this.create('meetups', table => {
       table.increments();
       table
-        .integer('user_id') // * Owner id
+        .integer('user_id')
         .unsigned()
         .notNullable()
         .references('id')
@@ -16,7 +16,7 @@ class MeetupSchema extends Schema {
         .onUpdate('CASCADE')
         .onDelete('SET NULL');
       table
-        .integer('file_id') // * Cover string
+        .integer('file_id')
         .unsigned()
         .references('id')
         .inTable('files')
@@ -25,16 +25,11 @@ class MeetupSchema extends Schema {
       table
         .string('title')
         .notNullable()
-        .unique(); // * Title string
-      table.text('description').notNullable(); // * Description string
-      table.timestamp('event_date'); // * Event date timestamp
-      // table.timestamp('event_date');
-
+        .unique();
+      table.text('description').notNullable();
+      table.timestamp('event_date');
       table.timestamps();
       /*
-
-      * Participants [ ] // relation
-      * Preferences [] // relation
       * Local {
         * Place string
         * City string

@@ -32,9 +32,9 @@ class UserController {
       password_confirmation,
     } = request.post();
 
-    if (preferences && preferences.length > 0) {
-      await user.preferences().sync(preferences);
-    }
+    // if (preferences && preferences.length > 0) {
+    //   await user.preferences().sync(preferences);
+    // }
 
     if (password && password === password_confirmation) {
       user.password = password;

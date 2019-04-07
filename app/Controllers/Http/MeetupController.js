@@ -16,11 +16,18 @@ class MeetupController {
   }
 
   async store({ request, auth }) {
-    const { title, description, file_id, preferences } = request.post();
+    const {
+      title,
+      description,
+      event_date,
+      file_id,
+      preferences,
+    } = request.post();
 
     const meetup = await Meetup.create({
       title,
       description,
+      event_date,
       file_id,
       user_id: auth.user.id,
     });
