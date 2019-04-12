@@ -7,14 +7,10 @@ class UserPreferencesSchema extends Schema {
   up() {
     this.create('user_preferences', table => {
       table.increments();
-      table
-        .integer('preference_id')
-        .unsigned()
-        .index('preference_id');
-      table
-        .integer('user_id')
-        .unsigned()
-        .index('user_id');
+      table.integer('preference_id').unsigned();
+      // .index('preference_id');
+      table.integer('user_id').unsigned();
+      // .index('user_id');
       table
         .foreign('preference_id')
         .references('id')

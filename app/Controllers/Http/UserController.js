@@ -3,7 +3,6 @@
 const User = use('App/Models/User');
 
 class UserController {
-  // taking "request" from the ctx object
   async store({ request }) {
     const data = request.only(['name', 'email', 'password']);
 
@@ -15,10 +14,9 @@ class UserController {
   async show({ params }) {
     const user = await User.findOrFail(params.id);
 
-    // await meetup.load('user');
-    // await meetup.load('file');
-
     user.preferences = await user.preferences().fetch();
+
+    console.log('fetching user with id', user.id);
 
     return user;
   }
@@ -31,10 +29,6 @@ class UserController {
       password,
       password_confirmation,
     } = request.post();
-
-    // if (preferences && preferences.length > 0) {
-    //   await user.preferences().sync(preferences);
-    // }
 
     if (password && password === password_confirmation) {
       user.password = password;

@@ -3,13 +3,13 @@
 const Preference = use('App/Models/Preference');
 
 class PreferenceController {
-  async index({ request }) {
+  async index({}) {
     const preferences = await Preference.query().fetch();
 
     return preferences;
   }
 
-  async store({ request, auth }) {
+  async store({ request }) {
     const { name, description } = request.post();
 
     const preference = await Preference.create({

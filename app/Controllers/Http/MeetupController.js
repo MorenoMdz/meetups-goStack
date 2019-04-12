@@ -20,7 +20,7 @@ class MeetupController {
       title,
       description,
       event_date,
-      file_id,
+      cover_url,
       preferences,
     } = request.post();
 
@@ -28,7 +28,7 @@ class MeetupController {
       title,
       description,
       event_date,
-      file_id,
+      cover_url,
       user_id: auth.user.id,
     });
 

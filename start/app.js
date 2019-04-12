@@ -34,6 +34,7 @@ const providers = [
 */
 const aceProviders = [
   '@adonisjs/lucid/providers/MigrationsProvider',
+  // 'adonis-kue/providers/CorsProvider',
   'adonis-kue/providers/CommandsProvider',
 ];
 

@@ -7,14 +7,10 @@ class MeetupPreferenceSchema extends Schema {
   up() {
     this.create('meetup_preferences', table => {
       table.increments();
-      table
-        .integer('preference_id')
-        .unsigned()
-        .index('preference_id');
-      table
-        .integer('meetup_id')
-        .unsigned()
-        .index('meetup_id');
+      table.integer('preference_id').unsigned();
+      // .index('preference_id');
+      table.integer('meetup_id').unsigned();
+      // .index('meetup_id');
       table
         .foreign('preference_id')
         .references('id')

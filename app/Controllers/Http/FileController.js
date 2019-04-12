@@ -38,6 +38,18 @@ class FileController {
       });
     }
   }
+
+  async destroy({ params, response }) {
+    const file = await File.findOrFail(params.id);
+
+    await file.delete();
+
+    // return response.download(Helpers.tmpPath(`uploads/${file.file}`));
+
+    return response
+      .status(200)
+      .send({ success: { message: `File ${file.file} removido com sucesso` } });
+  }
 }
 
 module.exports = FileController;

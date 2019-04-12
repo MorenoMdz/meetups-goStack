@@ -37,7 +37,10 @@ Route.group(() => {
     );
 
   Route.post('meetups/:id/register', 'MeetupRegistrationController.store');
-  Route.post('meetups/:id/unregister', 'MeetupRegistrationController.destroy');
+  Route.delete(
+    'meetups/:id/unregister',
+    'MeetupRegistrationController.destroy'
+  );
 
   Route.post('meetups/by-title', 'SearchController.meetupsByTitle');
   Route.post('meetups/registered', 'SearchController.meetupsRegistered');
@@ -52,4 +55,5 @@ Route.group(() => {
   );
 
   Route.post('files', 'FileController.store');
+  Route.delete('files/:id', 'FileController.destroy');
 }).middleware(['auth']);
