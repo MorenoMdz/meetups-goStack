@@ -30,6 +30,10 @@ class Meetup extends Model {
       .pivotTable('user_meetup')
       .pivotModel('App/Models/UserMeetup');
   }
+
+  address() {
+    return this.hasMany('App/Models/MeetupAddress');
+  }
 }
 
 module.exports = Meetup;

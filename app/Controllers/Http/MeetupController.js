@@ -1,5 +1,6 @@
 'use strict';
 
+const Env = use('Env');
 const Meetup = use('App/Models/Meetup');
 
 class MeetupController {
@@ -9,20 +10,26 @@ class MeetupController {
 
     const meetups = await Meetup.query()
       .with('user', builder => builder.select('id', 'name'))
-      .with('file')
+      .with('address')
       .paginate(page);
 
     return meetups;
   }
 
   async store({ request, auth }) {
-    const {
+    let {
       title,
       description,
       event_date,
       cover_url,
       preferences,
+      address,
     } = request.post();
+
+    if (!cover_url) {
+      // use default cover
+      cover_url = `${Env.get('APP_URL')}/files/1`;
+    }
 
     const meetup = await Meetup.create({
       title,
@@ -37,6 +44,9 @@ class MeetupController {
       meetup.preferences = await meetup.preferences().fetch();
     }
 
+    await meetup.address().create(address);
+    meetup.address = await meetup.address().fetch();
+
     return meetup;
   }
 
@@ -44,7 +54,7 @@ class MeetupController {
     const meetup = await Meetup.findOrFail(params.id);
 
     await meetup.load('user');
-    await meetup.load('file');
+    await meetup.load('address');
 
     meetup.preferences = await meetup.preferences().fetch();
     meetup.users = await meetup.users().fetch();

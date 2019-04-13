@@ -11,6 +11,25 @@ class MeetupRegistration {
     const meetup = await Meetup.findOrFail(params.id);
     const user = auth.user;
 
+    const userInMeetup = await Meetup.query()
+      .where('id', params.id)
+      .with('users')
+      .whereHas('users', builder => builder.where('user_id', user.id))
+      .fetch();
+
+    const isRegistered = !!userInMeetup.toJSON().length;
+
+    if (isRegistered) {
+      return response.send({
+        error: {
+          message: `O usuário ${user.name} já está registrado no meetup ${
+            meetup.title
+          }.`,
+        },
+      });
+    }
+
+    meetup.total_members = meetup.total_members + 1;
     await meetup.users().attach(user.id);
 
     await meetup.save();
@@ -38,10 +57,29 @@ class MeetupRegistration {
   }
 
   async destroy({ params, response, auth }) {
-    const user_id = auth.user.id;
     const meetup = await Meetup.findOrFail(params.id);
+    const user = auth.user;
 
-    await meetup.users().detach(user_id);
+    const userInMeetup = await Meetup.query()
+      .where('id', params.id)
+      .with('users')
+      .whereHas('users', builder => builder.where('user_id', user.id))
+      .fetch();
+
+    const isRegistered = !!userInMeetup.toJSON().length;
+
+    if (!isRegistered) {
+      return response.send({
+        error: {
+          message: `O usuário ${user.name} não está registrado no meetup ${
+            meetup.title
+          }.`,
+        },
+      });
+    }
+    await meetup.users().detach(user.id);
+
+    meetup.total_members = meetup.total_members - 1;
 
     await meetup.save();
 

@@ -27,6 +27,18 @@ Route.group(() => {
   Route.get('users/:id', 'UserController.show');
   Route.put('users/:id', 'UserController.update');
 
+  Route.get('meetups/by-title', 'SearchController.meetupsByTitle');
+  Route.get('meetups/registered', 'SearchController.meetupsRegistered');
+  Route.get('meetups/not-registered', 'SearchController.meetupsNotRegistered');
+  Route.get(
+    'meetups/registered-soon',
+    'SearchController.meetupsRegisteredSoon'
+  );
+  Route.get(
+    'meetups/recommended-soon',
+    'SearchController.meetupsNotRegisteredRecommended'
+  );
+
   Route.resource('meetups', 'MeetupController')
     .apiOnly()
     .validator(
@@ -40,18 +52,6 @@ Route.group(() => {
   Route.delete(
     'meetups/:id/unregister',
     'MeetupRegistrationController.destroy'
-  );
-
-  Route.post('meetups/by-title', 'SearchController.meetupsByTitle');
-  Route.post('meetups/registered', 'SearchController.meetupsRegistered');
-  Route.post('meetups/not-registered', 'SearchController.meetupsNotRegistered');
-  Route.post(
-    'meetups/registered-soon',
-    'SearchController.meetupsRegisteredSoon'
-  );
-  Route.post(
-    'meetups/recommended-soon',
-    'SearchController.meetupsNotRegisteredRecommended'
   );
 
   Route.post('files', 'FileController.store');

@@ -24,7 +24,8 @@ class MeetupSchema extends Schema {
         .onDelete('SET NULL');
       table.string('title').notNullable();
       table.text('description').notNullable();
-      table.text('cover_url').notNullable();
+      table.string('cover_url').notNullable();
+      table.integer('total_members');
       table.timestamp('event_date');
       table.timestamps();
       /*
