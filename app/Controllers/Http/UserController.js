@@ -5,19 +5,13 @@ const User = use('App/Models/User');
 class UserController {
   async store({ request }) {
     const data = request.only(['name', 'email', 'password']);
-
     const user = await User.create(data);
-
     return user;
   }
 
   async show({ params }) {
     const user = await User.findOrFail(params.id);
-
     user.preferences = await user.preferences().fetch();
-
-    console.log('fetching user with id', user.id);
-
     return user;
   }
 
@@ -40,11 +34,8 @@ class UserController {
 
     await user.merge({ name });
     await user.preferences().sync(preferences);
-
     await user.save();
-
     user.preferences = await user.preferences().fetch();
-
     return user;
   }
 }
