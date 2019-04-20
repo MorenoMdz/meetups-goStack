@@ -6,13 +6,10 @@ const Meetup = use('App/Models/Meetup');
 class MeetupController {
   async index({ request }) {
     const { page } = request.get();
-    // DOC to be called with 'meetups?page=2'
-
     const meetups = await Meetup.query()
       .with('user', builder => builder.select('id', 'name'))
       .with('address')
       .paginate(page);
-
     return meetups;
   }
 
@@ -25,12 +22,10 @@ class MeetupController {
       preferences,
       address,
     } = request.post();
-
     if (!cover_url) {
       // use default cover
       cover_url = `${Env.get('APP_URL')}/files/1`;
     }
-
     const meetup = await Meetup.create({
       title,
       description,
@@ -43,44 +38,34 @@ class MeetupController {
       await meetup.preferences().attach(preferences);
       meetup.preferences = await meetup.preferences().fetch();
     }
-
     await meetup.address().create(address);
     meetup.address = await meetup.address().fetch();
-
     return meetup;
   }
 
   async show({ params }) {
     const meetup = await Meetup.findOrFail(params.id);
-
     await meetup.load('user');
     await meetup.load('address');
-
+    await meetup.load('users');
     meetup.preferences = await meetup.preferences().fetch();
     meetup.users = await meetup.users().fetch();
-
     return meetup;
   }
 
   async update({ params, request }) {
     const meetup = await Meetup.findOrFail(params.id);
     const { title, description, file_id, preferences } = request.post();
-
     await meetup.merge({ title, description, file_id });
     await meetup.preferences().sync(preferences);
-
     await meetup.save();
-
     meetup.preferences = await meetup.preferences().fetch();
-
     return meetup;
   }
 
   async destroy({ params, response }) {
     const meetup = await Meetup.findOrFail(params.id);
-
     await meetup.delete();
-
     return response
       .status(200)
       .send({ success: { message: 'Meetup removido com sucesso' } });

@@ -7,38 +7,40 @@ const User = use('App/Models/User');
 
 class SearchController {
   async meetupsByTitle({ request }) {
-    const { title } = request.post();
+    const { title } = request.get();
+    const { page } = request.get() || 1;
+
+    console.log(title, page);
     const meetups = await Meetup.query()
       .where(`title`, `like`, `%${title}%`)
-      .fetch();
+      .paginate(page);
     return meetups;
   }
 
-  async meetupsRegistered({ auth }) {
+  async meetupsRegistered({ request, auth }) {
+    // send 3 per page max!
     const logged_user = await auth.getUser();
     const user_id = logged_user.id;
+    const { page } = request.post() || 1;
     const user = await User.findOrFail(user_id);
-    const meetupsRegistered = await user.meetups().fetch();
+    const meetupsRegistered = await user.meetups().paginate(page);
     return meetupsRegistered;
   }
 
-  async meetupsRegisteredSoon({ auth }) {
+  async meetupsRegisteredSoon({ request, auth }) {
     const logged_user = await auth.getUser();
     const user_id = logged_user.id;
+    const { page } = request.post() || 1;
     const user = await User.findOrFail(user_id);
     const now = moment().format('MM/DD/YYYY');
-    // const now = moment().format('YYYY-MM-DD HH:mm');
     const soon = moment()
       .add(14, 'days')
       .calendar();
 
-    // console.log('now', now);
-    // console.log('soon', soon);
-
     const meetupsSoon = await user
       .meetups()
       .whereRaw(`event_date <= '${soon}' AND event_date >= '${now}'`)
-      .fetch();
+      .paginate(page);
 
     return meetupsSoon;
   }
@@ -66,7 +68,7 @@ class SearchController {
     const preferences = (await user.preferences().fetch())
       .toJSON()
       .map(preference => preference.id);
-    console.log(preferences);
+    // console.log(preferences);
     const meetups = await Meetup.query()
       .whereRaw(`event_date >= '${now}'`)
       .with('users')
