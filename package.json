@@ -5,7 +5,7 @@
   "description": "App para gerenciar meetups entre programadores",
   "main": "index.js",
   "scripts": {
-    "start": "adonis serve --dev",
+    "start": "node server.js",
     "test": "node ace test"
   },
   "keywords": [
