@@ -6,7 +6,8 @@
   "main": "index.js",
   "scripts": {
     "start": "ENV_SILENT=true node server.js",
-    "migrate": "ENV_SILENT=true node ace migration:run --force"
+    "migrate": "ENV_SILENT=true node ace migration:run --force",
+    "seed": "ENV_SILENT=true node ace seed --force"
   },
   "keywords": [
     "meetups",
