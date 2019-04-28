@@ -24,14 +24,6 @@ class UserController {
       password_confirmation,
     } = request.post();
 
-    // if (password && password === password_confirmation) {
-    //   user.password = password;
-    // } else {
-    //   return response.status(401).send({
-    //     error: { message: 'A confirmação de senha não confere.' },
-    //   });
-    // }
-
     if (password) {
       if (password === password_confirmation) {
         user.password = password;
