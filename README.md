@@ -12,47 +12,47 @@ Configure o servidor Redis
 
 ### API Routes
 
-#### Endpoint | Method | Data | \* authenticated route
+#### Endpoint | Method | Data | * authenticated route
 
 Rotas de Login e Registro
-`users` | POST | { name, email, password, password_confirmation}
-`users/:id` | GET | {} | \*
-`users/:id` | POST | { name, email, password, password_confirmation, preferences:[]}
+ `users` | POST | { name, email, password, password_confirmation}  
+ `users/:id` | GET | {} | *   
+ `users/:id` | POST | { name, email, password, password_confirmation, preferences:[]}   
 
 Rotas de Sessão
-`sessions` | POST | { name, email}
+ `sessions` | POST | { name, email}  
 
 Rotas de reset de senha
-`forgot` | POST | { email, redirect_url }
-`forgot` | PUT | { token, password }
+ `forgot` | POST | { email, redirect_url }  
+ `forgot` | PUT | { token, password }  
 
 Rotas de preferências
-`preferences` | POST | { name, description } | _
-`preferences` | GET | {} | _
+ `preferences` | POST | { name, description } | *  
+ `preferences` | GET | {} | *  
 
 Rotas de Arquivos
-`files` | POST | {file} MultiPart | _
-`files/:id` | DELETE | {} | _
-`files/:id` | GET | {} | \*
+ `files` | POST | {file} MultiPart | *  
+ `files/:id` | DELETE | {} | *  
+ `files/:id` | GET | {} | *  
 
 Rotas de Meetups
-`meetups` | POST | {title, decription, event_date, preferences: [], address: {
-street, number, city, state
-}} | _
-`meetups/:id` | PUT | {title, decription, event_date, preferences: [], address: {
-street, number, city, state
-}} | _
-`meetups` | GET | {} | _
-`meetups/:id` | GET | {} | _
-`meetups/:id` | DELETE | {} | \*
+ `meetups` | POST | {title, decription, event_date, preferences: [], address: {
+  street, number, city, state
+ }} | *  
+ `meetups/:id` | PUT | {title, decription, event_date, preferences: [], address: {
+  street, number, city, state
+ }} | *  
+ `meetups` | GET | {} | *  
+ `meetups/:id` | GET | {} | *  
+ `meetups/:id` | DELETE | {} | *  
 
 Rotas de Registro em Meetup
-`meetups/:id/register` | POST | {} | _
-`meetups/:id/register` | DELETE | {} | _
+ `meetups/:id/register` | POST | {} | *  
+ `meetups/:id/register` | DELETE | {} | *  
 
 Buscar Meetups
-`meetups/by-title` | GET | { title } | _
-`meetups/registered` | GET | {} | _
-`meetups/registered-soon` | GET | {} | _
-`meetups/not-registered` | GET | {} | _
-`meetups/registered-soon` | GET | {} | \*
+ `meetups/by-title` | GET | { title } | *  
+ `meetups/registered` | GET | {} | *  
+ `meetups/registered-soon` | GET | {} | *  
+ `meetups/not-registered` | GET | {} | *  
+ `meetups/registered-soon` | GET | {} | *  
