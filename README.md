@@ -12,7 +12,7 @@ Configure o servidor Redis
 
 ### API Routes
 
-# Endpoint | Method | Data | * authenticated route
+#### Endpoint | Method | Data | * authenticated route
 
 Rotas de Login e Registro
 > `users` | POST | { name, email, password, password_confirmation}
