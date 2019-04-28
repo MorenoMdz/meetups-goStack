@@ -1,41 +1,41 @@
 # MeetApp
 
-Meetups sobre desenvolvimento na sua região.
+Meetups sobre desenvolvimento na sua região.  
 
-## Setup
+## Setup  
 
-Configure o servidor de banco de dados PG
-Configure o servidor Redis
-`npm install`
-`adonis serve --dev`
-`adonis kue:listen`
+Configure o servidor de banco de dados PG  
+Configure o servidor Redis  
+`npm install`  
+`adonis serve --dev`  
+`adonis kue:listen`  
 
-### API Routes
+### API Routes  
 
-#### Endpoint | Method | Data | * authenticated route
-
-Rotas de Login e Registro
+#### Endpoint | Method | Data | * authenticated route  
+  
+Rotas de Login e Registro  
  `users` | POST | { name, email, password, password_confirmation}  
  `users/:id` | GET | {} | *   
  `users/:id` | POST | { name, email, password, password_confirmation, preferences:[]}   
-
-Rotas de Sessão
+  
+Rotas de Sessão  
  `sessions` | POST | { name, email}  
-
-Rotas de reset de senha
+  
+Rotas de reset de senha  
  `forgot` | POST | { email, redirect_url }  
  `forgot` | PUT | { token, password }  
-
-Rotas de preferências
+  
+Rotas de preferências  
  `preferences` | POST | { name, description } | *  
  `preferences` | GET | {} | *  
-
-Rotas de Arquivos
+  
+Rotas de Arquivos  
  `files` | POST | {file} MultiPart | *  
  `files/:id` | DELETE | {} | *  
  `files/:id` | GET | {} | *  
-
-Rotas de Meetups
+  
+Rotas de Meetups  
  `meetups` | POST | {title, decription, event_date, preferences: [], address: {
   street, number, city, state
  }} | *  
@@ -45,12 +45,12 @@ Rotas de Meetups
  `meetups` | GET | {} | *  
  `meetups/:id` | GET | {} | *  
  `meetups/:id` | DELETE | {} | *  
-
-Rotas de Registro em Meetup
+  
+Rotas de Registro em Meetup  
  `meetups/:id/register` | POST | {} | *  
  `meetups/:id/register` | DELETE | {} | *  
 
-Buscar Meetups
+Buscar Meetups  
  `meetups/by-title` | GET | { title } | *  
  `meetups/registered` | GET | {} | *  
  `meetups/registered-soon` | GET | {} | *  
