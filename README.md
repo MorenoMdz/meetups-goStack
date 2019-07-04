@@ -107,4 +107,4 @@ Buscar Meetups
  `meetups/not-registered` | GET | {} | _  
  `meetups/registered-soon` | GET | {} | \*
 
-> > > > > > > e20792f1e355fbb03d80b77f110314d8a0266d40
+
