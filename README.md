@@ -8,7 +8,6 @@ Configure o servidor de banco de dados PG
 Configure o servidor Redis  
 `npm install`  
 `adonis serve --dev`  
-<<<<<<< HEAD
 `adonis kue:listen`
 
 ### API Routes
